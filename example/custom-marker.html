@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery pdwMap</title>
+    <style>
+        .map
+        {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <h1>Custom markers</h1>
+
+    <div class="map" id="map"></div>
+</article>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="../src/jquery.pdwMaps.js"></script>
+<script src="../src/providers/cloudmade.js"></script>
+
+<script type="text/javascript">
+    $(function()
+    {
+        $('#map').pdwMap({
+            provider: "cloudmade",
+            apiKeys: {
+                "cloudmade": 'YOUR API KEY'
+            },
+            defaultPosition: {
+                lat: 50.637922,
+                lng: 5.580025
+            },
+            maps: {
+                zoom: 7
+            },
+            marker: {
+                url : './map-pin.png',
+                anchor: {
+                    x: 11,
+                    y: 30
+                },
+                size: {
+                    width: 22,
+                    height: 30
+                },
+                shadow: {
+                    url: './map-pin-shadow.png',
+                    size: {
+                        width: 30,
+                        height: 30
+                    },
+                    anchor: {
+                        x: 11,
+                        y: 30
+                    }
+                }
+            },
+            onMapLoaded: function(map)
+            {
+                $(map).pdwMap('addMarkers',
+                [
+                    {
+                        lat: 50.851041,
+                        lng: 4.356079,
+                        title: 'Brussels',
+                        content: 'You found Brussels !'
+                    },
+                    {
+                        lat: 50.719069,
+                        lng: 4.608765,
+                        title: 'Wavre',
+                        content: 'You found Wavre !'
+                    },
+                    {
+                        lat: 50.927276,
+                        lng: 4.048462,
+                        title: 'Alost',
+                        content: 'You found Alost !'
+                    }
+                ]);
+            }
+        });
+    });
+</script>
+</body>
+</html>

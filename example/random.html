@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery pdwMap</title>
+    <style>
+        .map
+        {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <h1>Simple map</h1>
+
+    <div class="map" id="map"></div>
+</article>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="../src/jquery.pdwMaps.min.js"></script>
+
+<script type="text/javascript">
+    var providers = [ "gmaps", "bing", "ovi", "cloudmade", "yandex", "openlayers" ],
+            provider = providers[Math.floor(Math.random() * providers.length)];
+    $(function()
+    {
+        $('#map').pdwMap({
+            provider: provider,
+            apiKeys: {
+                gmaps: 'YOUR API KEY',
+                bing: 'YOUR API KEY',
+                ovi: 'YOUR API KEY',
+                oviAppId: 'YOUR API ID',
+                cloudmade: 'YOUR API KEY',
+                yandex: 'YOUR API KEY'
+            },
+            defaultPosition: {
+                lat: 50.637922,
+                lng: 5.580025
+            },
+            maps: {
+                zoom: 7
+            }
+        });
+    });
+</script>
+</body>
+</html>

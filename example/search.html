@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery pdwMap</title>
+    <style>
+        .map
+        {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <h1>Search map with Ovi</h1>
+
+    <p>
+        <label for="city">City</label><input type="text" id="city" value="Brussels" />
+    </p>
+    <p>
+        <label for="country">Country</label><input type="text" id="country" value="BE"/>
+    </p>
+    <p>
+        <label for="radius">Radius (km)</label><input type="number" id="radius" value="20"/>
+    </p>
+    <p>
+        <button id="go">Search</button>
+        <button id="clear">Clear the map</button>
+    </p>
+    <div class="map" id="map"></div>
+</article>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="../src/jquery.pdwMaps.js"></script>
+<script src="../src/providers/ovi.js"></script>
+
+<script type="text/javascript">
+    $(function()
+    {
+        $('#map').pdwMap({
+            provider: "ovi",
+            apiKeys: {
+                "ovi": 'YOUR API KEY',
+                "oviAppId": 'YOUR API ID'
+            },
+            defaultPosition: {
+                lat: 50.637922,
+                lng: 5.580025
+            },
+            maps: {
+                zoom: 7
+            },
+
+            /*
+             * overwrite the default search to perform a simple search
+             */
+            search: function(city, state, country, radius, type)
+            {
+                console.log('Search for ', city, state, country, radius, type);
+
+                // clean the map
+                $('#map').pdwMap('cleanMap');
+
+                // add the result to the map
+                var markers = [
+                    {
+                        lat: 50.851041,
+                        lng: 4.356079,
+                        title: 'Brussels',
+                        content: 'You found Brussels !'
+                    },
+                    {
+                        lat: 50.719069,
+                        lng: 4.608765,
+                        title: 'Wavre',
+                        content: 'You found Wavre !'
+                    },
+                    {
+                        lat: 50.927276,
+                        lng: 4.048462,
+                        title: 'Alost',
+                        content: 'You found Alost !'
+                    }
+                ];
+
+                // you have to use pdwMap('addMarkers', markers);
+                // but this example will add markers one by one to show the complete process
+
+                for (var i = 0; i < markers.length; i++)
+                {
+                    $('#map').pdwMap('addMarker', markers[i]);
+                }
+
+                // draw the radius circle
+                $('#map').pdwMap('setCenter', 50.851041, 4.356079, 20);
+
+                // center the map
+                $('#map').pdwMap('centerMap');
+            }
+        });
+
+        $('#go').click(function(e)
+        {
+            console.log('Search clicked');
+            $('#map').pdwMap('search', $('#city').val(), $('#state').val(), $('#country').val(), $('#radius').val());
+        });
+
+        $('#clear').click(function(e)
+        {
+            e.preventDefault();
+
+            $('#map').pdwMap('cleanMap');
+        });
+    });
+</script>
+</body>
+</html>

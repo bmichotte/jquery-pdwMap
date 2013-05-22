@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery pdwMap</title>
+    <style>
+        .map
+        {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <h1>Add markers and clean map</h1>
+
+    <p>
+        <button id="add">Add a marker</button>
+        <button id="addall">Add all markers</button>
+        <button id="clear">Clear the map</button>
+    </p>
+    <div class="map" id="map"></div>
+</article>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="../src/jquery.pdwMaps.js"></script>
+<script src="../src/providers/gmaps.js"></script>
+
+<script type="text/javascript">
+    $(function()
+    {
+        $('#map').pdwMap({
+            provider: "gmaps",
+            apiKeys: {
+                gmaps: 'YOUR API KEY'
+            },
+            defaultPosition: {
+                lat: 50.637922,
+                lng: 5.580025
+            },
+            maps: {
+                zoom: 7
+            }
+        });
+
+        $('#add').click(function(e)
+        {
+            e.preventDefault();
+
+            if (actualPoint + 1 > points.length)
+            {
+                alert('no more point');
+                return;
+            }
+
+            var p = points[actualPoint],
+                    point = {
+                        lat: p[0],
+                        lng: p[1],
+                        title: 'A point',
+                        content: 'This show the point ' + actualPoint
+                    };
+            $('#map').pdwMap('addMarker', point);
+            actualPoint++;
+        });
+
+        $('#addall').click(function(e)
+        {
+            e.preventDefault();
+
+            // clean the map
+            $('#map').pdwMap('cleanMap');
+
+            var markers = [];
+
+            for (var i = 0; i < points.length; i++)
+            {
+                var p = points[i],
+                        point = {
+                            lat: p[0],
+                            lng: p[1],
+                            title: 'A point',
+                            content: 'This show the point ' + i
+                        };
+
+                markers.push(point);
+            }
+            $('#map').pdwMap('addMarkers', markers);
+            actualPoint = points.length;
+        });
+
+        $('#clear').click(function(e)
+        {
+            e.preventDefault();
+
+            $('#map').pdwMap('cleanMap');
+            actualPoint = 0;
+        });
+    });
+
+    var points = [
+                [50.569283, 4.674683],
+                [50.495958, 5.410767],
+                [50.930738, 5.245972]
+            ],
+            actualPoint = 0;
+</script>
+</body>
+</html>
