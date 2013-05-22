@@ -1,0 +1,32 @@
+{
+    "name": "pdwMap",
+    "title": "jQuery pdwMap",
+    "description": "jQuery plugin abstracting the use of maps API.",
+    "keywords": [
+        "map",
+        "google maps",
+        "bing",
+        "ovi",
+        "openlayers",
+        "cloudmade",
+        "yandex"
+    ],
+    "version": "0.1.0",
+    "author": {
+        "name": "Benjamin Michotte",
+        "email": "benjamin@produweb.be",
+        "url": "https://github.com/bmichotte"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/bmichotte/jquery-pdwMap/blob/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/bmichotte/jquery-pdwMap/issues",
+    "homepage": "https://github.com/bmichotte/jquery-pdwMap",
+    "docs": "https://github.com/bmichotte/jquery-pdwMap/blob/master/README.md",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}
